@@ -2,12 +2,12 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { site } from "@/lib/site";
 import { Menu, X } from "lucide-react";
 
-type SectionId = "services" | "products" | "industries" | "testimonials" | "contact";
+type SectionId = "top" | "services" | "howwework" | "products" | "testimonials" | "contact";
 
 function BodyPortal({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false);
@@ -25,8 +25,7 @@ export function Navbar() {
           href: n.href,
           id: n.href.replace("#", "") as SectionId,
         }))
-        .filter((x) => x.href.startsWith("#"))
-        .filter((x) => x.id !== "industries"),
+        .filter((x) => x.href.startsWith("#")),
     []
   );
 
@@ -41,13 +40,20 @@ export function Navbar() {
   const safeActive = mounted ? active : null;
   const safeScrolled = mounted ? scrolled : false;
 
+  // ✅ lock para que el observer no cambie "top" -> "services" durante scroll suave
+  const lockActiveRef = useRef(false);
+
   // active section observer
   useEffect(() => {
     if (!mounted) return;
-    const ids = items.map((x) => x.id);
+
+    // ✅ siempre observa top aunque no esté en site.nav
+    const ids = Array.from(new Set<SectionId>(["top", ...items.map((x) => x.id)]));
 
     const obs = new IntersectionObserver(
       (entries) => {
+        if (lockActiveRef.current) return;
+
         const visible = entries
           .filter((e) => e.isIntersecting)
           .sort((a, b) => (b.intersectionRatio ?? 0) - (a.intersectionRatio ?? 0))[0];
@@ -99,6 +105,20 @@ export function Navbar() {
 
   const onNavClick = () => setOpen(false);
 
+  // ✅ helper: navegar con lock (evita que active cambie en medio del scroll)
+  const goTo = (id: SectionId) => {
+    setOpen(false);
+    setActive(id);
+
+    lockActiveRef.current = true;
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    history.replaceState(null, "", `#${id}`);
+
+    window.setTimeout(() => {
+      lockActiveRef.current = false;
+    }, 420);
+  };
+
   return (
     <>
       <header
@@ -112,30 +132,18 @@ export function Navbar() {
         ].join(" ")}
       >
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
-        <Link
-  href="#top"
-  onClick={(e) => {
-    e.preventDefault();
-
-    // cierra el menú móvil si está abierto
-    setOpen(false);
-
-    // scroll real al hero
-    document.getElementById("top")?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-
-    // actualiza la URL con el hash (sin recargar)
-    history.replaceState(null, "", "#top");
-  }}
-  className="group text-sm font-bold tracking-[0.18em] text-white uppercase transition hover:text-white"
-  aria-label="Sola Technical Solutions home"
->
-  Sola <span className="text-white/70">Technical</span>{" "}
-  <span className="text-white/90">Solutions</span>
-</Link>
-
+          <Link
+            href="#top"
+            onClick={(e) => {
+              e.preventDefault();
+              goTo("top");
+            }}
+            className="group text-sm font-bold tracking-[0.18em] text-white uppercase transition hover:text-white"
+            aria-label="Sola Technical Solutions home"
+          >
+            Sola <span className="text-white/70">Technical</span>{" "}
+            <span className="text-white/90">Solutions</span>
+          </Link>
 
           {/* Desktop nav */}
           <nav className="hidden items-center gap-2 md:flex" aria-label="Primary">
@@ -145,6 +153,11 @@ export function Navbar() {
                 <a
                   key={it.href}
                   href={it.href}
+                  onClick={() => {
+                    // ✅ usar goTo para que el active cambie correctamente
+                    const id = it.id as SectionId;
+                    goTo(id);
+                  }}
                   aria-current={isActive ? "page" : undefined}
                   className={[
                     "group relative rounded-full px-4 py-2",
@@ -180,6 +193,10 @@ export function Navbar() {
             {/* Desktop CTA */}
             <a
               href="#contact"
+              onClick={(e) => {
+                e.preventDefault();
+                goTo("contact");
+              }}
               className={[
                 "relative hidden md:inline-flex items-center justify-center",
                 "rounded-full px-4 py-2",
@@ -209,7 +226,7 @@ export function Navbar() {
         </div>
       </header>
 
-      {/* ✅ MOBILE MENU in BODY via Portal (fixes your “goes up / clipped” issue) */}
+      {/* ✅ MOBILE MENU in BODY via Portal */}
       {open && (
         <BodyPortal>
           {/* Backdrop */}
@@ -227,10 +244,13 @@ export function Navbar() {
                 <div className="p-4">
                   <div className="mx-auto mb-3 h-1.5 w-12 rounded-full bg-white/15" />
 
-                  {/* Home/Top (regresar al Hero) */}
+                  {/* Home/Top */}
                   <a
                     href="#top"
-                    onClick={onNavClick}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      goTo("top");
+                    }}
                     className="flex items-center justify-between rounded-2xl px-4 py-3 text-sm font-semibold tracking-wide bg-white/6 text-white hover:bg-white/10"
                   >
                     <span>Home</span>
@@ -244,13 +264,14 @@ export function Navbar() {
                         <a
                           key={it.href}
                           href={it.href}
-                          onClick={onNavClick}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            goTo(it.id as SectionId);
+                          }}
                           className={[
                             "flex items-center justify-between rounded-2xl px-4 py-3",
                             "text-sm font-semibold tracking-wide",
-                            isActive
-                              ? "bg-white/8 text-white"
-                              : "bg-white/0 text-white/85 hover:bg-white/6",
+                            isActive ? "bg-white/8 text-white" : "bg-white/0 text-white/85 hover:bg-white/6",
                           ].join(" ")}
                         >
                           <span>{it.label}</span>
@@ -265,7 +286,10 @@ export function Navbar() {
                   <div className="mt-4 grid gap-3">
                     <a
                       href="#contact"
-                      onClick={onNavClick}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        goTo("contact");
+                      }}
                       className="inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-blue-600 to-emerald-600 px-5 py-3 text-sm font-semibold text-white shadow-[0_18px_46px_rgba(37,99,235,0.30)] transition hover:brightness-110"
                     >
                       Get a Quote
@@ -273,7 +297,10 @@ export function Navbar() {
 
                     <a
                       href="#services"
-                      onClick={onNavClick}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        goTo("services");
+                      }}
                       className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
                     >
                       View Services
@@ -281,18 +308,10 @@ export function Navbar() {
                   </div>
 
                   <div className="mt-4 flex flex-wrap items-center gap-2 text-xs font-semibold tracking-[0.14em] uppercase text-white/50">
-                    <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">
-                      Web
-                    </span>
-                    <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">
-                      Mobile
-                    </span>
-                    <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">
-                      SaaS
-                    </span>
-                    <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">
-                      Automation
-                    </span>
+                    <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">Web</span>
+                    <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">Mobile</span>
+                    <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">SaaS</span>
+                    <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">Automation</span>
                   </div>
                 </div>
               </div>

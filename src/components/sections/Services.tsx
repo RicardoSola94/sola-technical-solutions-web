@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
-import { Code2, Smartphone, Camera, ArrowRight } from "lucide-react";
+import { Code2, Smartphone, Camera, ArrowRight, Check } from "lucide-react";
 
 const services = [
   {
@@ -12,7 +12,6 @@ const services = [
     bullets: ["Internal tools & dashboards", "APIs & integrations", "Admin panels & workflows"],
     Icon: Code2,
     accent: "from-blue-600/12 via-sky-500/8 to-transparent",
-    dot: "bg-blue-600/70",
   },
   {
     title: "Web & Mobile Applications",
@@ -20,7 +19,6 @@ const services = [
     bullets: ["Next.js + TypeScript", "Flutter mobile apps", "Design systems"],
     Icon: Smartphone,
     accent: "from-indigo-600/12 via-blue-600/8 to-transparent",
-    dot: "bg-indigo-600/70",
   },
   {
     title: "Media & Virtual Tours",
@@ -28,17 +26,13 @@ const services = [
     bullets: ["Bay360 virtual tours", "Drone media", "Web-ready delivery"],
     Icon: Camera,
     accent: "from-cyan-600/12 via-sky-500/8 to-transparent",
-    dot: "bg-cyan-600/70",
   },
 ];
 
 const container: Variants = {
   hidden: {},
   visible: {
-    transition: {
-      staggerChildren: 0.12,
-      delayChildren: 0.08,
-    },
+    transition: { staggerChildren: 0.12, delayChildren: 0.08 },
   },
 };
 
@@ -48,37 +42,16 @@ const fadeUp: Variants = {
     opacity: 1,
     y: 0,
     filter: "blur(0px)",
-    transition: {
-      duration: 0.7,
-      ease: [0.16, 1, 0.3, 1] as const,
-    },
+    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as const },
   },
 };
 
 export function Services() {
   return (
-    <section
-      id="services"
-      className="relative scroll-mt-24 bg-[#F7FAFF] pt-16 pb-20"
-    >
-      {/* Dark -> Light bridge (smooth transition from Hero) */}
-      <div
-        className="pointer-events-none absolute -top-24 left-0 right-0 h-24"
-        aria-hidden="true"
-      >
-        <div className="absolute inset-0 bg-gradient-to-b from-[#070B14] to-[#F7FAFF]" />
-      </div>
+    <section id="services" className="relative scroll-mt-24 bg-[#F7FAFF] pt-16 pb-20">
+      
 
-      {/* Top curve (softer, more premium) */}
-      <div
-        className="pointer-events-none absolute -top-10 left-0 right-0 h-10 bg-[#F7FAFF] [clip-path:ellipse(140%_100%_at_50%_0%)]"
-        aria-hidden="true"
-      />
-      <div
-        className="pointer-events-none absolute -top-6 left-0 right-0 h-10 bg-[#F7FAFF]/70 blur-xl"
-        aria-hidden="true"
-      />
-
+      
       {/* Background glows */}
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">
         <div className="absolute inset-0 bg-gradient-to-b from-[#F7FAFF] via-white to-slate-50" />
@@ -104,8 +77,8 @@ export function Services() {
           </h2>
 
           <p className="mt-4 text-slate-600">
-            End-to-end delivery — strategy, design, development, and launch.
-            Focused on outcomes: reliability, speed, and clarity.
+            End-to-end delivery — strategy, design, development, and launch. Focused on outcomes:
+            reliability, speed, and clarity.
           </p>
         </motion.div>
 
@@ -117,7 +90,7 @@ export function Services() {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          {services.map(({ title, desc, bullets, Icon, accent, dot }) => (
+          {services.map(({ title, desc, bullets, Icon, accent }) => (
             <motion.div
               key={title}
               variants={fadeUp}
@@ -128,13 +101,16 @@ export function Services() {
                 className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${accent} opacity-0 transition-opacity duration-300 group-hover:opacity-100`}
               />
 
-              {/* hover ring (neutral, premium) */}
+              {/* hover ring */}
               <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-transparent transition duration-300 group-hover:ring-slate-900/10" />
+
+              {/* top sheen */}
+              <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white/[0.10] to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
               <div className="relative">
                 <div className="flex items-start gap-4">
-                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-slate-200 bg-white shadow-sm transition group-hover:border-blue-200">
-                    <Icon className="h-5 w-5 text-slate-900" />
+                  <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl border border-slate-200 bg-gradient-to-b from-white to-slate-50 shadow-sm transition group-hover:border-blue-200">
+                    <Icon className="h-6 w-6 text-slate-900" />
                   </span>
 
                   <div>
@@ -145,8 +121,8 @@ export function Services() {
 
                 <ul className="mt-6 space-y-2 text-sm text-slate-700">
                   {bullets.map((b) => (
-                    <li key={b} className="flex items-center gap-2">
-                      <span className={`h-1.5 w-1.5 rounded-full ${dot}`} />
+                    <li key={b} className="flex items-start gap-2">
+                      <Check className="mt-0.5 h-4 w-4 text-blue-600" />
                       <span>{b}</span>
                     </li>
                   ))}
@@ -162,6 +138,9 @@ export function Services() {
                   </Link>
                 </div>
               </div>
+
+              {/* bottom sheen */}
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-slate-900/[0.04] to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
             </motion.div>
           ))}
         </motion.div>

@@ -3,6 +3,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { ShieldCheck, Zap, Layers } from "lucide-react";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 14, filter: "blur(6px)" },
@@ -14,13 +15,9 @@ const fadeIn = {
   visible: { opacity: 1 },
 };
 
-function GlowDot() {
-  return <span className="h-1 w-1 rounded-full bg-white/35" aria-hidden="true" />;
-}
-
 export function Hero() {
   return (
-    <section className="relative w-full max-w-full overflow-x-clip overflow-y-visible">
+    <section id="top" className="relative w-full max-w-full overflow-hidden">
       {/* Background */}
       <div
         className="pointer-events-none absolute inset-0 -z-10 w-full max-w-full overflow-x-clip"
@@ -37,31 +34,27 @@ export function Hero() {
               "linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px)",
             backgroundSize: "44px 44px",
             maskImage: "radial-gradient(circle at 30% 30%, black 0%, transparent 60%)",
-            WebkitMaskImage: "radial-gradient(circle at 30% 30%, black 0%, transparent 60%)",
+            WebkitMaskImage:
+              "radial-gradient(circle at 30% 30%, black 0%, transparent 60%)",
           }}
         />
 
-        {/* Cinematic glows (use translate instead of negative right to avoid overflow with blur) */}
+        {/* Cinematic glows */}
         <div className="absolute right-0 top-[-140px] translate-x-[160px] h-[640px] w-[640px] rounded-full bg-blue-500/20 blur-3xl" />
-        <div className="absolute right-0 bottom-[-260px] translate-x-[-140px] h-[540px] w-[540px] rounded-full bg-emerald-400/10 blur-3xl" />
+        
         <div className="absolute -top-40 left-1/2 h-[520px] w-[980px] -translate-x-1/2 rounded-full bg-blue-600/18 blur-3xl" />
 
         {/* Hero image */}
         <div
-  className="absolute inset-0 bg-no-repeat bg-[position:110%_center] bg-[length:min(980px,60vw)] md:bg-[length:min(1200px,58vw)]"
-  style={{ backgroundImage: "url('/hero-globe.webp')" }}
-/>
-
+          className="absolute inset-0 bg-no-repeat bg-[position:110%_center] bg-[length:min(980px,60vw)] md:bg-[length:min(1200px,58vw)]"
+          style={{ backgroundImage: "url('/hero-globe.webp')" }}
+        />
 
         {/* Readability overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#070B14]/95 via-[#070B14]/72 to-[#070B14]/15" />
 
-        {/* Bottom transition into white */}
-        <div className="absolute bottom-0 left-0 right-0 h-24 sm:h-28">
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/0 to-white" />
-          <div className="absolute bottom-0 left-0 right-0 h-14 bg-white [clip-path:ellipse(120%_100%_at_50%_100%)]" />
-          <div className="absolute bottom-0 left-0 right-0 h-8 bg-white/60 blur-xl" />
-        </div>
+        
+
       </div>
 
       {/* Content */}
@@ -73,7 +66,7 @@ export function Hero() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="grid items-start gap-10 lg:grid-cols-[1.05fr_0.95fr]"
         >
-          {/* Left: copy */}
+          {/* Left */}
           <div className="max-w-xl">
             <motion.div
               variants={fadeUp}
@@ -101,33 +94,16 @@ export function Hero() {
               transition={{ duration: 0.7, ease: "easeOut", delay: 0.12 }}
               className="mt-5 max-w-xl text-base leading-relaxed text-white/70 sm:text-lg"
             >
-              From internal tools to full platforms, we design, develop, and launch production-ready
-              systems — web, mobile, automation, and integrations.
+              From internal tools to full platforms, we design, develop, and launch
+              production-ready systems — web, mobile, automation, and integrations.
             </motion.p>
-
-            <motion.div
-              variants={fadeUp}
-              transition={{ duration: 0.7, ease: "easeOut", delay: 0.16 }}
-              className="mt-5 flex flex-wrap items-center gap-3 text-xs font-semibold tracking-[0.12em] uppercase text-white/55"
-            >
-              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-white/70">
-                Strategy
-              </span>
-              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-white/70">
-                Engineering
-              </span>
-              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-white/70">
-                Long-term Support
-              </span>
-            </motion.div>
 
             {/* CTAs */}
             <motion.div
               variants={fadeUp}
-              transition={{ duration: 0.7, ease: "easeOut", delay: 0.22 }}
+              transition={{ duration: 0.7, ease: "easeOut", delay: 0.18 }}
               className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center"
             >
-              {/* Primary CTA */}
               <motion.div
                 className="inline-flex rounded-full"
                 whileHover={{ scale: 1.04, y: -1, boxShadow: "0 18px 46px rgba(37,99,235,0.42)" }}
@@ -142,7 +118,6 @@ export function Hero() {
                 </Link>
               </motion.div>
 
-              {/* Secondary CTA */}
               <motion.div
                 className="inline-flex rounded-full"
                 whileHover={{ scale: 1.02, y: -1 }}
@@ -157,7 +132,6 @@ export function Hero() {
                 </Link>
               </motion.div>
 
-              {/* Micro-link */}
               <Link
                 href="#products"
                 className="text-sm font-semibold text-white/70 underline decoration-white/25 underline-offset-4 transition hover:text-white hover:decoration-white/50 sm:ml-1"
@@ -166,101 +140,62 @@ export function Hero() {
               </Link>
             </motion.div>
 
-            {/* Trust layer */}
+            {/* Trust (compact icons) */}
             <motion.div
               variants={fadeUp}
-              transition={{ duration: 0.7, ease: "easeOut", delay: 0.30 }}
-              className="mt-9"
+              transition={{ duration: 0.7, ease: "easeOut", delay: 0.28 }}
+              className="mt-9 flex flex-wrap items-center gap-4 text-sm text-white/70"
             >
-              <div className="text-xs font-semibold tracking-[0.14em] uppercase text-white/55">
-                Trusted for modern builds across the U.S.
-              </div>
-
-              <div className="mt-3 flex flex-wrap items-center gap-3">
-                {["Web Apps", "Mobile Apps", "SaaS Platforms", "Automation", "Integrations"].map(
-                  (t) => (
-                    <span
-                      key={t}
-                      className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-white/70"
-                    >
-                      {t}
-                    </span>
-                  )
-                )}
-              </div>
-
-              <div className="mt-5 flex flex-wrap items-center gap-3 text-xs font-medium tracking-[0.14em] uppercase text-white/55">
-                <span>Web & Mobile</span>
-                <GlowDot />
-                <span>SaaS Platforms</span>
-                <GlowDot />
-                <span>Automation</span>
-              </div>
+              <span className="inline-flex items-center gap-2">
+                <Zap className="h-4 w-4 text-white/70" />
+                Fast delivery
+              </span>
+              <span className="inline-flex items-center gap-2">
+                <Layers className="h-4 w-4 text-white/70" />
+                Scalable systems
+              </span>
+              <span className="inline-flex items-center gap-2">
+                <ShieldCheck className="h-4 w-4 text-white/70" />
+                Production-ready
+              </span>
             </motion.div>
           </div>
 
-          {/* Right: visual anchor (desktop) */}
+          {/* Right: visual anchor */}
           <motion.div
             variants={fadeUp}
             transition={{ duration: 0.7, ease: "easeOut", delay: 0.14 }}
             className="relative hidden lg:block pb-10"
+            animate={{ y: [0, -6, 0] }}
+            whileHover={{ y: -10 }}
+            style={{ willChange: "transform" }}
           >
             <div className="relative overflow-visible rounded-3xl border border-white/10 bg-white/[0.04] p-5 shadow-[0_24px_70px_rgba(0,0,0,0.45)]">
               <div className="flex items-center justify-between">
-                <div className="text-sm font-semibold text-white/85">Delivery Preview</div>
+                <div className="text-sm font-semibold text-white/85">Preview</div>
                 <div className="inline-flex items-center gap-2">
                   <span className="h-2 w-2 rounded-full bg-emerald-400/80" />
                   <span className="text-xs font-semibold text-white/55">Production-ready</span>
                 </div>
               </div>
 
-              <div className="mt-4 grid gap-3">
-                <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                  <div className="text-xs font-semibold tracking-[0.14em] uppercase text-white/55">
-                    Workflow
-                  </div>
-                  <div className="mt-2 h-2 w-full rounded-full bg-white/10">
-                    <div className="h-2 w-[72%] rounded-full bg-gradient-to-r from-blue-500/70 to-emerald-500/70" />
-                  </div>
-                  <div className="mt-2 text-sm font-semibold text-white/80">
-                    Automations + Integrations
-                  </div>
-                  <div className="mt-1 text-xs text-white/60">
-                    Payments • Scheduling • CRM • Dashboards
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                    <div className="text-xs font-semibold tracking-[0.14em] uppercase text-white/55">
-                      Stack
-                    </div>
-                    <div className="mt-2 text-sm font-semibold text-white/80">
-                      Next.js • APIs
-                    </div>
-                    <div className="mt-1 text-xs text-white/60">TypeScript • Deploy</div>
-                  </div>
-
-                  <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                    <div className="text-xs font-semibold tracking-[0.14em] uppercase text-white/55">
-                      Support
-                    </div>
-                    <div className="mt-2 text-sm font-semibold text-white/80">
-                      Long-term
-                    </div>
-                    <div className="mt-1 text-xs text-white/60">Security • Monitoring</div>
-                  </div>
-                </div>
+              {/* Real image slot (recommended) */}
+              <div className="mt-4 overflow-hidden rounded-2xl border border-white/10 bg-black/20">
+                <img
+                  src="/hero-dashboard.webp"
+                  alt="Dashboard preview"
+                  className="h-auto w-full opacity-90"
+                  loading="eager"
+                />
               </div>
 
               <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-blue-500/20 blur-3xl" />
-              <div className="pointer-events-none absolute -left-12 -bottom-16 h-48 w-48 rounded-full bg-emerald-500/15 blur-3xl" />
+             
             </div>
 
             <div className="absolute -bottom-8 left-10 z-20 rounded-full border border-white/10 bg-white/[0.06] px-4 py-2 text-xs font-semibold text-white/70 shadow-[0_18px_46px_rgba(0,0,0,0.35)] backdrop-blur">
-  Fast • Clean • Scalable
-</div>
-
+              Fast • Clean • Scalable
+            </div>
           </motion.div>
         </motion.div>
       </div>

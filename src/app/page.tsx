@@ -13,7 +13,6 @@ import { Contact } from "@/components/sections/Contact";
 export default function HomePage() {
   return (
     <>
-      <div id="top" />
       <Hero />
       <Services />
       <HowWeWork />

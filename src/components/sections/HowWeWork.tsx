@@ -50,7 +50,7 @@ const steps = [
 export function HowWeWork() {
   return (
     <section
-      id="how-we-work"
+      id="howwework"
       className="relative scroll-mt-24 overflow-hidden bg-slate-100 py-20"
     >
       {/* Light → clean bridge (no glass) */}
