@@ -16,9 +16,10 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className="min-h-screen bg-[#070B14] text-white antialiased">
-        <div className="relative flex min-h-screen flex-col">
+    <html lang="en" suppressHydrationWarning className="overflow-x-clip">
+      <body className="min-h-screen bg-[#070B14] text-white antialiased overflow-x-clip">
+      <div className="relative flex min-h-screen max-w-full flex-col overflow-x-clip">
+
           {/* Cinematic background */}
           <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
             <div className="absolute inset-0 bg-[radial-gradient(70%_55%_at_50%_0%,rgba(37,99,235,0.35)_0%,rgba(7,11,20,0)_60%)]" />
