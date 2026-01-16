@@ -7,16 +7,16 @@ import { Search, Layout, Code2, LifeBuoy, ArrowRight } from "lucide-react";
 
 const container: Variants = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.08 } },
+  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.06 } },
 };
 
 const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 18, filter: "blur(8px)" },
+  hidden: { opacity: 0, y: 16, filter: "blur(8px)" },
   visible: {
     opacity: 1,
     y: 0,
     filter: "blur(0px)",
-    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as const },
+    transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] as const },
   },
 };
 
@@ -24,24 +24,28 @@ const steps = [
   {
     title: "Discovery & Strategy",
     desc: "We map your workflow, clarify goals, and define scope, timeline, and success metrics.",
+    outcome: "Outcome: project brief + success metrics",
     Icon: Search,
     dot: "bg-blue-600/80",
   },
   {
     title: "Design & Architecture",
     desc: "UX + system design: data model, integrations, user flows, and scalable architecture decisions.",
+    outcome: "Outcome: flows, architecture, and technical plan",
     Icon: Layout,
     dot: "bg-indigo-600/80",
   },
   {
     title: "Development & Launch",
     desc: "We build, test, and ship — with clean code, performance, and a smooth deployment process.",
+    outcome: "Outcome: production release + QA sign-off",
     Icon: Code2,
     dot: "bg-cyan-600/80",
   },
   {
     title: "Support & Scaling",
     desc: "Ongoing improvements, monitoring, new features, and scaling as your business grows.",
+    outcome: "Outcome: reliability, updates, and iteration",
     Icon: LifeBuoy,
     dot: "bg-emerald-600/80",
   },
@@ -51,9 +55,9 @@ export function HowWeWork() {
   return (
     <section
       id="howwework"
-      className="relative scroll-mt-24 overflow-hidden bg-slate-100 py-20"
+      className="relative scroll-mt-24 overflow-hidden bg-slate-100 py-18 sm:py-20"
     >
-      {/* Light → clean bridge (no glass) */}
+      {/* Light bridge */}
       <div
         className="pointer-events-none absolute -top-20 left-0 right-0 h-20"
         aria-hidden="true"
@@ -61,9 +65,9 @@ export function HowWeWork() {
         <div className="absolute inset-0 bg-gradient-to-b from-[#F7FAFF] to-transparent" />
       </div>
 
-      {/* subtle background (lighter, less “samey”) */}
+      {/* Background */}
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-        <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/40 to-white/10" />
+        <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/45 to-white/10" />
         <div className="absolute -top-28 left-1/2 h-[520px] w-[980px] -translate-x-1/2 rounded-full bg-blue-500/10 blur-3xl" />
         <div className="absolute -bottom-28 right-[-160px] h-[520px] w-[520px] rounded-full bg-emerald-400/10 blur-3xl" />
         <div className="absolute inset-0 bg-[radial-gradient(80%_80%_at_18%_12%,rgba(29,78,216,0.07)_0%,rgba(255,255,255,0)_60%)]" />
@@ -79,7 +83,7 @@ export function HowWeWork() {
           className="max-w-2xl"
         >
           <div className="inline-flex items-center rounded-full border border-slate-200 bg-white px-4 py-1 text-xs font-semibold tracking-[0.16em] uppercase text-slate-600 shadow-sm">
-            Process
+            4-step process
           </div>
 
           <h2 className="mt-6 text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
@@ -87,7 +91,8 @@ export function HowWeWork() {
           </h2>
 
           <p className="mt-4 text-slate-600">
-            A structured process that reduces risk, keeps timelines clear, and delivers quality outcomes.
+            A structured process that reduces risk, keeps timelines clear, and
+            delivers quality outcomes.
           </p>
         </motion.div>
 
@@ -99,30 +104,40 @@ export function HowWeWork() {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          {/* Vertical rail (protagonist) */}
+          {/* Vertical rail (mobile + all) */}
           <div
-            className="pointer-events-none absolute left-[28px] top-1 hidden h-[calc(100%-4px)] w-px md:block"
+            className="pointer-events-none absolute left-[14px] top-2 z-0 h-[calc(100%-10px)] w-[2px]"
             aria-hidden="true"
           >
-            <div className="absolute inset-0 bg-gradient-to-b from-slate-300/80 via-slate-300/50 to-transparent" />
+            <div className="absolute inset-0 rounded-full bg-gradient-to-b from-slate-400/80 via-slate-300/55 to-transparent" />
           </div>
 
-          <div className="space-y-5">
-            {steps.map(({ title, desc, Icon, dot }, idx) => (
+          <div className="space-y-4 sm:space-y-5">
+            {steps.map(({ title, desc, outcome, Icon, dot }, idx) => (
               <motion.div
                 key={title}
                 variants={fadeUp}
-                className="group relative grid gap-4 md:grid-cols-[64px_1fr]"
+                className="group relative grid gap-3 sm:gap-4 sm:grid-cols-[56px_1fr] lg:grid-cols-[64px_1fr]"
               >
-                {/* Left rail node */}
-                <div className="relative hidden md:flex md:items-start md:justify-center">
-                  <div className="relative mt-1 flex h-12 w-12 items-center justify-center">
-                    {/* node plate (flat) */}
-                    <span className="absolute inset-0 rounded-2xl border border-slate-200 bg-white transition group-hover:border-slate-300" />
-                    {/* small dot on rail */}
+                {/* Mobile: explicit step label (makes it instantly obvious) */}
+<div className="sm:hidden mb-2 inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.18em] uppercase text-slate-500">
+  <span className="inline-flex items-center rounded-full border border-slate-200 bg-white px-3 py-1">
+    Step {String(idx + 1).padStart(2, "0")}
+  </span>
+  <span className="h-1.5 w-1.5 rounded-full bg-slate-300" />
+  <span>Process</span>
+</div>
+
+
+               
+
+                {/* Left node (tablet/desktop) */}
+                <div className="relative hidden sm:flex sm:items-start sm:justify-center">
+                  <div className="relative mt-1 flex h-11 w-11 items-center justify-center lg:h-12 lg:w-12">
+                    <span className="absolute inset-0 rounded-2xl border border-slate-200 bg-white/95 transition group-hover:border-slate-300" />
                     <span
                       className={[
-                        "absolute -left-2 top-1/2 h-2.5 w-2.5 -translate-y-1/2 rounded-full",
+                        "absolute -left-[7px] top-1/2 h-2.5 w-2.5 -translate-y-1/2 rounded-full",
                         dot,
                       ].join(" ")}
                     />
@@ -130,33 +145,30 @@ export function HowWeWork() {
                   </div>
                 </div>
 
-                {/* Content row (flat, rail-driven) */}
+                {/* Content */}
                 <div
                   className={[
-                    "relative rounded-2xl border border-slate-200 bg-white/85 p-6",
-                    "shadow-[0_6px_18px_rgba(15,23,42,0.05)]",
+                    "relative rounded-2xl border border-slate-200 bg-white/80",
+                    "pl-14 pr-5 py-5 sm:p-6",
+                    "shadow-[0_1px_0_rgba(15,23,42,0.06)]",
                     "transition-all duration-200",
-                    "hover:-translate-y-0.5 hover:border-slate-300",
+                    "hover:border-slate-300 hover:bg-white/90",
                   ].join(" ")}
                 >
-                  {/* top hairline accent (subtle) */}
                   <div
-                    className={[
-                      "pointer-events-none absolute inset-x-6 top-0 h-px",
-                      "bg-gradient-to-r from-transparent via-slate-200 to-transparent",
-                    ].join(" ")}
+                    className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent"
                     aria-hidden="true"
                   />
 
-                  <div className="flex items-start justify-between gap-6">
+                  <div className="flex items-start justify-between gap-5">
                     <div className="min-w-0">
                       <div className="flex items-center gap-3">
                         {/* Mobile icon */}
-                        <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-slate-200 bg-white shadow-sm md:hidden">
+                        <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-slate-200 bg-white shadow-sm sm:hidden">
                           <Icon className="h-5 w-5 text-slate-900" />
                         </span>
 
-                        <h3 className="truncate text-lg font-semibold text-slate-900">
+                        <h3 className="truncate text-base font-semibold text-slate-900 sm:text-lg">
                           {title}
                         </h3>
                       </div>
@@ -165,15 +177,14 @@ export function HowWeWork() {
                         {desc}
                       </p>
 
-                      {/* Micro outcome line (keeps it “process”) */}
                       <div className="mt-4 flex items-center gap-2 text-sm text-slate-600">
                         <span className={`h-1.5 w-1.5 rounded-full ${dot}`} />
-                        <span className="font-medium">Clear deliverables, clean execution</span>
+                        <span className="font-medium">{outcome}</span>
                       </div>
                     </div>
 
-                    {/* Step label (quiet but pro) */}
-                    <div className="hidden shrink-0 text-right md:block">
+                    {/* Right Step label (desktop/tablet only) */}
+                    <div className="hidden shrink-0 text-right sm:block">
                       <div className="text-[11px] font-semibold tracking-[0.18em] uppercase text-slate-400">
                         Step
                       </div>
@@ -198,15 +209,15 @@ export function HowWeWork() {
         >
           <Link
             href="#contact"
-            className="inline-flex items-center justify-center rounded-full bg-blue-600 px-7 py-3 text-sm font-semibold text-white shadow-[0_14px_36px_rgba(37,99,235,0.25)] transition hover:bg-blue-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-[#F7FAFF]"
+            className="inline-flex items-center justify-center rounded-full bg-blue-600 px-7 py-3 text-sm font-semibold text-white shadow-[0_14px_36px_rgba(37,99,235,0.22)] transition hover:bg-blue-500"
           >
-            Request a Consultation
+            Start a Project
             <ArrowRight className="ml-2 h-4 w-4" />
           </Link>
 
           <Link
             href="#services"
-            className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-7 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/30 focus-visible:ring-offset-2 focus-visible:ring-offset-[#F7FAFF]"
+            className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-7 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
           >
             View Services
           </Link>

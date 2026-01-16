@@ -2,6 +2,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ShieldCheck, Zap, Layers } from "lucide-react";
 
@@ -23,10 +24,8 @@ export function Hero() {
         className="pointer-events-none absolute inset-0 -z-10 w-full max-w-full overflow-x-clip"
         aria-hidden="true"
       >
-        {/* Base */}
         <div className="absolute inset-0 bg-[#070B14]" />
 
-        {/* Subtle grid */}
         <div
           className="absolute inset-0 opacity-[0.14]"
           style={{
@@ -39,9 +38,7 @@ export function Hero() {
           }}
         />
 
-        {/* Cinematic glows */}
         <div className="absolute right-0 top-[-140px] translate-x-[160px] h-[640px] w-[640px] rounded-full bg-blue-500/20 blur-3xl" />
-        
         <div className="absolute -top-40 left-1/2 h-[520px] w-[980px] -translate-x-1/2 rounded-full bg-blue-600/18 blur-3xl" />
 
         {/* Hero image */}
@@ -50,11 +47,8 @@ export function Hero() {
           style={{ backgroundImage: "url('/hero-globe.webp')" }}
         />
 
-        {/* Readability overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#070B14]/95 via-[#070B14]/72 to-[#070B14]/15" />
-
-        
-
+        {/* Readability overlay (stronger on mobile) */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#070B14]/95 via-[#070B14]/80 to-[#070B14]/25 sm:via-[#070B14]/72 sm:to-[#070B14]/15" />
       </div>
 
       {/* Content */}
@@ -140,7 +134,7 @@ export function Hero() {
               </Link>
             </motion.div>
 
-            {/* Trust (compact icons) */}
+            {/* Trust */}
             <motion.div
               variants={fadeUp}
               transition={{ duration: 0.7, ease: "easeOut", delay: 0.28 }}
@@ -159,9 +153,48 @@ export function Hero() {
                 Production-ready
               </span>
             </motion.div>
+
+            {/* ✅ Mobile/Tablet preview (the missing piece) */}
+            <motion.div
+              variants={fadeUp}
+              transition={{ duration: 0.7, ease: "easeOut", delay: 0.34 }}
+              className="mt-10 lg:hidden"
+            >
+              <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-4 shadow-[0_20px_60px_rgba(0,0,0,0.45)] backdrop-blur">
+                <div className="flex items-center justify-between">
+                  <div className="text-xs font-semibold tracking-[0.14em] uppercase text-white/60">
+                    Preview
+                  </div>
+                  <div className="inline-flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-emerald-400/80" />
+                    <span className="text-xs font-semibold text-white/60">Production-ready</span>
+                  </div>
+                </div>
+
+                <div className="mt-3 overflow-hidden rounded-2xl border border-white/10 bg-black/20">
+                  <div className="relative h-[200px] w-full sm:h-[240px]">
+                    <Image
+                      src="/hero-dashboard.webp"
+                      alt="Dashboard preview"
+                      fill
+                      priority
+                      className="object-cover opacity-90"
+                      sizes="(max-width: 1024px) 100vw, 0px"
+                    />
+                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-black/40 to-transparent" />
+                  </div>
+                </div>
+
+                <div className="mt-3 text-xs font-semibold text-white/65">
+                  Fast • Clean • Scalable
+                </div>
+
+                <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-blue-500/20 blur-3xl" />
+              </div>
+            </motion.div>
           </div>
 
-          {/* Right: visual anchor */}
+          {/* Right: desktop visual anchor */}
           <motion.div
             variants={fadeUp}
             transition={{ duration: 0.7, ease: "easeOut", delay: 0.14 }}
@@ -179,18 +212,18 @@ export function Hero() {
                 </div>
               </div>
 
-              {/* Real image slot (recommended) */}
               <div className="mt-4 overflow-hidden rounded-2xl border border-white/10 bg-black/20">
-                <img
+                <Image
                   src="/hero-dashboard.webp"
                   alt="Dashboard preview"
+                  width={1200}
+                  height={720}
+                  priority
                   className="h-auto w-full opacity-90"
-                  loading="eager"
                 />
               </div>
 
               <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-blue-500/20 blur-3xl" />
-             
             </div>
 
             <div className="absolute -bottom-8 left-10 z-20 rounded-full border border-white/10 bg-white/[0.06] px-4 py-2 text-xs font-semibold text-white/70 shadow-[0_18px_46px_rgba(0,0,0,0.35)] backdrop-blur">

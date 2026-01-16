@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
-import { Quote, ArrowRight } from "lucide-react";
+import { Quote, ArrowRight, Star } from "lucide-react";
 
 const container: Variants = {
   hidden: {},
@@ -24,7 +24,7 @@ type T = {
   quote: string;
   name: string;
   role: string;
-  company: string;
+  company: string; // can be location
 };
 
 const testimonials: T[] = [
@@ -59,11 +59,12 @@ const testimonials: T[] = [
 ];
 
 export function Testimonials() {
+  // Pick one featured quote to break repetition
+  const featured = testimonials[0];
+  const rest = testimonials.slice(1);
+
   return (
-    <section
-      id="testimonials"
-      className="relative scroll-mt-24 overflow-hidden py-20"
-    >
+    <section id="testimonials" className="relative scroll-mt-24 overflow-hidden py-20">
       {/* dark background */}
       <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
         <div className="absolute inset-0 bg-[#070B14]" />
@@ -95,14 +96,19 @@ export function Testimonials() {
           </p>
         </motion.div>
 
-        {/* Trust strip (no cards) */}
+        {/* Proof strip (compact + enterprise) */}
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
           variants={fadeUp}
-          className="mt-8 grid gap-3 rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-5 backdrop-blur sm:grid-cols-3"
+          className="mt-8 grid gap-3 rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-5 backdrop-blur sm:grid-cols-4"
         >
+          <div className="flex items-center gap-2 text-sm text-white/75">
+            <Star className="h-4 w-4 text-white/70" />
+            <span className="font-semibold text-white">Quality-first</span>
+            <span className="text-white/45">delivery</span>
+          </div>
           <div className="text-sm text-white/70">
             <span className="font-semibold text-white">Production-ready</span> engineering
           </div>
@@ -114,29 +120,73 @@ export function Testimonials() {
           </div>
         </motion.div>
 
-        {/* Quote wall (NO cards) */}
+        {/* Featured quote (breaks monotony) */}
         <motion.div
-          className="mt-10"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={fadeUp}
+          className="mt-10 rounded-3xl border border-white/10 bg-white/[0.04] p-7 backdrop-blur shadow-[0_24px_70px_rgba(0,0,0,0.45)]"
+        >
+          <div className="flex items-start gap-4">
+            <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5">
+              <Quote className="h-5 w-5 text-white/80" />
+            </div>
+
+            <div className="min-w-0">
+              <p className="text-base leading-relaxed text-white/75">
+                “{featured.quote}”
+              </p>
+
+              <div className="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
+                <span className="font-semibold text-white/90">{featured.name}</span>
+                <span className="text-white/35">•</span>
+                <span className="text-white/60">{featured.role}</span>
+                <span className="text-white/35">•</span>
+                <span className="text-white/55">{featured.company}</span>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Quote wall */}
+        <motion.div
+          className="relative mt-10"
           variants={container}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
+          {/* center divider on desktop (makes it feel like a wall) */}
+          <div
+            className="pointer-events-none absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-gradient-to-b from-white/10 via-white/10 to-transparent md:block"
+            aria-hidden="true"
+          />
+
           <div className="grid gap-x-12 md:grid-cols-2">
-            {testimonials.map((t, idx) => (
+            {rest.map((t, idx) => (
               <motion.div
                 key={idx}
                 variants={fadeUp}
                 className={[
                   "group relative py-7",
                   "border-t border-white/10",
-                  "md:odd:pr-6 md:even:pl-6",
+                  "md:odd:pr-8 md:even:pl-8",
                 ].join(" ")}
               >
-                {/* subtle hover row */}
+                {/* hover row */}
                 <div className="absolute inset-x-0 -inset-y-2 rounded-2xl bg-white/[0.03] opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
 
                 <div className="relative">
+                  {/* Mobile: explicit meta header */}
+                  <div className="mb-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] font-semibold tracking-[0.16em] uppercase text-white/55 md:hidden">
+                    <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">
+                      {t.role}
+                    </span>
+                    <span className="text-white/35">•</span>
+                    <span>{t.company}</span>
+                  </div>
+
                   <div className="flex items-start gap-3">
                     <span className="mt-1 inline-flex h-9 w-9 items-center justify-center rounded-2xl border border-white/10 bg-white/5">
                       <Quote className="h-4 w-4 text-white/80" />
@@ -147,17 +197,21 @@ export function Testimonials() {
                         “{t.quote}”
                       </p>
 
-                      <div className="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
+                      <div className="mt-4 hidden flex-wrap items-center gap-x-2 gap-y-1 text-sm md:flex">
                         <span className="font-semibold text-white/90">{t.name}</span>
                         <span className="text-white/35">•</span>
                         <span className="text-white/60">{t.role}</span>
                         <span className="text-white/35">•</span>
                         <span className="text-white/55">{t.company}</span>
                       </div>
+
+                      {/* Desktop-only name line (keeps it clean) */}
+                      <div className="mt-4 text-sm md:hidden">
+                        <span className="font-semibold text-white/90">{t.name}</span>
+                      </div>
                     </div>
                   </div>
 
-                  {/* micro divider */}
                   <div className="mt-6 h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent" />
                 </div>
               </motion.div>
