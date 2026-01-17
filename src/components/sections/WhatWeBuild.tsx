@@ -66,13 +66,14 @@ const items = [
 ];
 
 const stacks = [
-  { label: "Frontend", value: "Next.js • TypeScript • Design System" },
-  { label: "Mobile", value: "Flutter • Riverpod • Native integrations" },
-  { label: "Backend", value: "APIs • Postgres • Edge Functions" },
-  { label: "Integrations", value: "Payments • Maps • CRM • Webhooks" },
-  { label: "Security", value: "Auth • RLS • Audits • Least privilege" },
-  { label: "Delivery", value: "CI/CD • Observability • Versioning" },
+  { label: "Experience", value: "Fast UI • Accessible • Responsive" },
+  { label: "Architecture", value: "Modular • Maintainable • Scalable" },
+  { label: "Data", value: "Reliable storage • Clear models • Audits" },
+  { label: "Integrations", value: "Payments • Maps • Messaging • Webhooks" },
+  { label: "Security", value: "Auth • Roles • Policies • Least privilege" },
+  { label: "Delivery", value: "CI/CD • Monitoring • Versioning" },
 ];
+
 
 const outcomes = [
   "Clear workflows, fewer manual steps",
@@ -260,6 +261,10 @@ export function WhatWeBuild() {
                 <div className="text-xs font-semibold tracking-[0.16em] uppercase text-white/55">
                   Build layers
                 </div>
+                <p className="mt-1 text-sm text-white/55">
+                   We choose the best tools per project — prioritizing reliability,
+                   performance, and long-term maintainability.
+                </p>
                 <div className="mt-3 space-y-3">
                   {stacks.map((s) => (
                     <div

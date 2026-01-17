@@ -15,19 +15,20 @@ const services = [
   },
   {
     title: "Web & Mobile Applications",
-    desc: "Fast, modern experiences across devices — engineered for UX, performance, and maintainability.",
-    bullets: ["Next.js + TypeScript", "Flutter mobile apps", "Design systems"],
+    desc: "Fast, modern experiences across devices — engineered for UX, performance, and long-term maintainability.",
+    bullets: ["Modern web & mobile builds", "Design systems & component libraries", "Performance & quality standards"],
     Icon: Smartphone,
     accent: "from-indigo-600/12 via-blue-600/8 to-transparent",
   },
   {
     title: "Media & Virtual Tours",
     desc: "High-impact visuals for real estate & brands — photography, video, and immersive 360° experiences.",
-    bullets: ["Bay360 virtual tours", "Drone media", "Web-ready delivery"],
+    bullets: ["360° tours & web delivery", "Drone photo/video capture", "Fast turnaround & clean integration"],
     Icon: Camera,
     accent: "from-cyan-600/12 via-sky-500/8 to-transparent",
   },
 ];
+
 
 const container: Variants = {
   hidden: {},
@@ -77,9 +78,10 @@ export function Services() {
           </h2>
 
           <p className="mt-4 text-slate-600">
-            End-to-end delivery — strategy, design, development, and launch. Focused on outcomes:
-            reliability, speed, and clarity.
-          </p>
+  End-to-end delivery — strategy, design, development, and launch. Focused on outcomes:
+  reliability, speed, and clarity. We choose the right tools per project.
+</p>
+
         </motion.div>
 
         {/* Cards */}

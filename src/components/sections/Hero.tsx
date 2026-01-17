@@ -174,7 +174,7 @@ export function Hero() {
                 <div className="mt-3 overflow-hidden rounded-2xl border border-white/10 bg-black/20">
                   <div className="relative h-[200px] w-full sm:h-[240px]">
                     <Image
-                      src="/hero-dashboard.webp"
+                      src="/hero_product.png"
                       alt="Dashboard preview"
                       fill
                       priority
@@ -214,7 +214,7 @@ export function Hero() {
 
               <div className="mt-4 overflow-hidden rounded-2xl border border-white/10 bg-black/20">
                 <Image
-                  src="/hero-dashboard.webp"
+                  src="/hero_product.png"
                   alt="Dashboard preview"
                   width={1200}
                   height={720}
