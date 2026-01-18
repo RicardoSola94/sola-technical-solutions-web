@@ -1,9 +1,24 @@
 // src/components/layout/Footer.tsx
 import Link from "next/link";
 import { site } from "@/lib/site";
+import { Mail, Phone, MapPin, Linkedin, Instagram, Facebook, Globe } from "lucide-react";
 
 export function Footer() {
   const year = new Date().getFullYear();
+
+  // ✅ Static placeholders (swap later)
+  const email = "contact@solatechnicalsolutions.com";
+  const phoneDisplay = "+1 (813) 555-0123";
+  const phoneE164 = "+18135550123";
+  const location = "Tampa, FL";
+  const mapsHref = "https://www.google.com/maps?q=Tampa+FL";
+
+  const socials = [
+    { label: "LinkedIn", href: "https://www.linkedin.com/", Icon: Linkedin },
+    { label: "Instagram", href: "https://www.instagram.com/", Icon: Instagram },
+    { label: "Facebook", href: "https://www.facebook.com/", Icon: Facebook },
+    { label: "Website", href: "https://solatechnicalsolutions.com", Icon: Globe },
+  ];
 
   return (
     <footer className="relative overflow-hidden border-t border-white/10 bg-[#070B14]">
@@ -29,7 +44,53 @@ export function Footer() {
               Software & digital systems — built for reliability, speed, and scale.
             </div>
 
-            <div className="mt-4 text-xs text-white/45">
+            {/* Contact mini-block */}
+            <div className="mt-6 grid gap-2 text-sm">
+              <a
+                href={`mailto:${email}`}
+                className="inline-flex items-center gap-2 text-white/70 transition hover:text-white"
+              >
+                <Mail className="h-4 w-4 text-white/60" />
+                <span className="truncate">{email}</span>
+              </a>
+
+              <a
+                href={`tel:${phoneE164}`}
+                className="inline-flex items-center gap-2 text-white/70 transition hover:text-white"
+              >
+                <Phone className="h-4 w-4 text-white/60" />
+                <span>{phoneDisplay}</span>
+              </a>
+
+              <a
+                href={mapsHref}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 text-white/70 transition hover:text-white"
+              >
+                <MapPin className="h-4 w-4 text-white/60" />
+                <span>{location}</span>
+              </a>
+            </div>
+
+            {/* Socials */}
+            <div className="mt-5 flex items-center gap-2">
+              {socials.map(({ label, href, Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={label}
+                  title={label}
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-white/70 transition hover:bg-white/[0.08] hover:text-white"
+                >
+                  <Icon className="h-4 w-4" />
+                </a>
+              ))}
+            </div>
+
+            <div className="mt-5 text-xs text-white/45">
               Sola Technical Solutions LLC — Software & Digital Systems Company
             </div>
           </div>
@@ -43,8 +104,14 @@ export function Footer() {
               <Link href="#services" className="text-white/70 transition hover:text-white">
                 Services
               </Link>
+              <Link href="#howwework" className="text-white/70 transition hover:text-white">
+                How we work
+              </Link>
               <Link href="#products" className="text-white/70 transition hover:text-white">
                 Products
+              </Link>
+              <Link href="#testimonials" className="text-white/70 transition hover:text-white">
+                Testimonials
               </Link>
               <Link href="#contact" className="text-white/70 transition hover:text-white">
                 Contact
@@ -61,13 +128,18 @@ export function Footer() {
               Next.js • React • TypeScript
             </div>
 
+            {/* Optional small trust/legal */}
+            <div className="mt-6 text-xs text-white/45">
+              Serving US-based businesses • Remote-friendly delivery
+            </div>
+
             <div className="mt-6 text-sm text-white/60">
               © {year} {site.name}. All rights reserved.
             </div>
           </div>
         </div>
 
-        {/* bottom divider (optional) */}
+        {/* bottom divider */}
         <div className="mt-10 h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent" />
       </div>
     </footer>

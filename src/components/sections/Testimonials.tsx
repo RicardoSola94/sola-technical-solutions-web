@@ -59,7 +59,6 @@ const testimonials: T[] = [
 ];
 
 export function Testimonials() {
-  // Pick one featured quote to break repetition
   const featured = testimonials[0];
   const rest = testimonials.slice(1);
 
@@ -92,11 +91,12 @@ export function Testimonials() {
           </h2>
 
           <p className="mt-4 text-white/65">
-            We focus on outcomes: clarity, execution, and systems that don’t break under real usage.
+            Feedback from early partners and real projects — focused on clarity, execution, and systems that hold up
+            under real usage.
           </p>
         </motion.div>
 
-        {/* Proof strip (compact + enterprise) */}
+        {/* Proof strip */}
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -120,7 +120,7 @@ export function Testimonials() {
           </div>
         </motion.div>
 
-        {/* Featured quote (breaks monotony) */}
+        {/* Featured */}
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -134,9 +134,7 @@ export function Testimonials() {
             </div>
 
             <div className="min-w-0">
-              <p className="text-base leading-relaxed text-white/75">
-                “{featured.quote}”
-              </p>
+              <p className="text-base leading-relaxed text-white/75">“{featured.quote}”</p>
 
               <div className="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
                 <span className="font-semibold text-white/90">{featured.name}</span>
@@ -157,7 +155,6 @@ export function Testimonials() {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          {/* center divider on desktop (makes it feel like a wall) */}
           <div
             className="pointer-events-none absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-gradient-to-b from-white/10 via-white/10 to-transparent md:block"
             aria-hidden="true"
@@ -174,15 +171,12 @@ export function Testimonials() {
                   "md:odd:pr-8 md:even:pl-8",
                 ].join(" ")}
               >
-                {/* hover row */}
-                <div className="absolute inset-x-0 -inset-y-2 rounded-2xl bg-white/[0.03] opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
+                {/* ✅ hover row only on desktop */}
+                <div className="absolute inset-x-0 -inset-y-2 rounded-2xl bg-white/[0.03] opacity-0 transition-opacity duration-200 md:group-hover:opacity-100" />
 
                 <div className="relative">
-                  {/* Mobile: explicit meta header */}
                   <div className="mb-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] font-semibold tracking-[0.16em] uppercase text-white/55 md:hidden">
-                    <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">
-                      {t.role}
-                    </span>
+                    <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">{t.role}</span>
                     <span className="text-white/35">•</span>
                     <span>{t.company}</span>
                   </div>
@@ -193,9 +187,7 @@ export function Testimonials() {
                     </span>
 
                     <div className="min-w-0">
-                      <p className="text-sm leading-relaxed text-white/70">
-                        “{t.quote}”
-                      </p>
+                      <p className="text-sm leading-relaxed text-white/70">“{t.quote}”</p>
 
                       <div className="mt-4 hidden flex-wrap items-center gap-x-2 gap-y-1 text-sm md:flex">
                         <span className="font-semibold text-white/90">{t.name}</span>
@@ -205,7 +197,6 @@ export function Testimonials() {
                         <span className="text-white/55">{t.company}</span>
                       </div>
 
-                      {/* Desktop-only name line (keeps it clean) */}
                       <div className="mt-4 text-sm md:hidden">
                         <span className="font-semibold text-white/90">{t.name}</span>
                       </div>

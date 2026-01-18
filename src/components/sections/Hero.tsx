@@ -67,7 +67,7 @@ export function Hero() {
               transition={{ duration: 0.6, ease: "easeOut" }}
               className="inline-flex max-w-full items-center whitespace-normal break-words text-center rounded-full border border-white/15 bg-white/5 px-4 py-1 text-[11px] font-semibold tracking-[0.16em] uppercase text-white/80"
             >
-              Custom Software • SaaS • Automation
+              Custom Software • SaaS • Automation • Integrations
             </motion.div>
 
             <motion.h1
@@ -76,10 +76,10 @@ export function Hero() {
               className="mt-7 text-4xl font-extrabold tracking-tight text-white sm:text-6xl"
             >
               <span className="block drop-shadow-[0_2px_18px_rgba(37,99,235,0.30)]">
-                We build custom software
+                Custom software that runs your business
               </span>
               <span className="mt-2 block text-white/90 sm:text-5xl">
-                that scales business operations.
+                faster — and scales with you.
               </span>
             </motion.h1>
 
@@ -88,8 +88,9 @@ export function Hero() {
               transition={{ duration: 0.7, ease: "easeOut", delay: 0.12 }}
               className="mt-5 max-w-xl text-base leading-relaxed text-white/70 sm:text-lg"
             >
-              From internal tools to full platforms, we design, develop, and launch
-              production-ready systems — web, mobile, automation, and integrations.
+              We design and build production-ready systems for real operations —
+              internal tools, customer portals, admin dashboards, mobile apps, and
+              automation that connects your stack.
             </motion.p>
 
             {/* CTAs */}
@@ -100,7 +101,11 @@ export function Hero() {
             >
               <motion.div
                 className="inline-flex rounded-full"
-                whileHover={{ scale: 1.04, y: -1, boxShadow: "0 18px 46px rgba(37,99,235,0.42)" }}
+                whileHover={{
+                  scale: 1.04,
+                  y: -1,
+                  boxShadow: "0 18px 46px rgba(37,99,235,0.42)",
+                }}
                 whileTap={{ scale: 0.98 }}
                 transition={{ type: "spring", stiffness: 260, damping: 18 }}
               >
@@ -108,7 +113,7 @@ export function Hero() {
                   href="#contact"
                   className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-emerald-600 px-7 py-3 text-sm font-semibold text-white shadow-[0_14px_36px_rgba(37,99,235,0.30)] transition hover:brightness-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#070B14]"
                 >
-                  Get a Quote
+                  Start a Project
                 </Link>
               </motion.div>
 
@@ -130,7 +135,7 @@ export function Hero() {
                 href="#products"
                 className="text-sm font-semibold text-white/70 underline decoration-white/25 underline-offset-4 transition hover:text-white hover:decoration-white/50 sm:ml-1"
               >
-                See products
+                Explore products
               </Link>
             </motion.div>
 
@@ -146,15 +151,21 @@ export function Hero() {
               </span>
               <span className="inline-flex items-center gap-2">
                 <Layers className="h-4 w-4 text-white/70" />
-                Scalable systems
+                Built to scale
               </span>
               <span className="inline-flex items-center gap-2">
                 <ShieldCheck className="h-4 w-4 text-white/70" />
-                Production-ready
+                Secure & production-ready
+              </span>
+
+              <span className="hidden sm:inline-flex items-center gap-2 text-white/55">
+                • <span className="font-semibold text-white/70">Web</span> •{" "}
+                <span className="font-semibold text-white/70">Mobile</span> •{" "}
+                <span className="font-semibold text-white/70">Automation</span>
               </span>
             </motion.div>
 
-            {/* ✅ Mobile/Tablet preview (the missing piece) */}
+            {/* ✅ Mobile/Tablet preview */}
             <motion.div
               variants={fadeUp}
               transition={{ duration: 0.7, ease: "easeOut", delay: 0.34 }}
@@ -163,11 +174,13 @@ export function Hero() {
               <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-4 shadow-[0_20px_60px_rgba(0,0,0,0.45)] backdrop-blur">
                 <div className="flex items-center justify-between">
                   <div className="text-xs font-semibold tracking-[0.14em] uppercase text-white/60">
-                    Preview
+                    Platform Preview
                   </div>
                   <div className="inline-flex items-center gap-2">
                     <span className="h-2 w-2 rounded-full bg-emerald-400/80" />
-                    <span className="text-xs font-semibold text-white/60">Production-ready</span>
+                    <span className="text-xs font-semibold text-white/60">
+                      Production-ready
+                    </span>
                   </div>
                 </div>
 
@@ -175,7 +188,7 @@ export function Hero() {
                   <div className="relative h-[200px] w-full sm:h-[240px]">
                     <Image
                       src="/hero_product.png"
-                      alt="Dashboard preview"
+                      alt="Software platform dashboard preview"
                       fill
                       priority
                       className="object-cover opacity-90"
@@ -186,7 +199,7 @@ export function Hero() {
                 </div>
 
                 <div className="mt-3 text-xs font-semibold text-white/65">
-                  Fast • Clean • Scalable
+                  Built for speed • clarity • growth
                 </div>
 
                 <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-blue-500/20 blur-3xl" />
@@ -205,17 +218,21 @@ export function Hero() {
           >
             <div className="relative overflow-visible rounded-3xl border border-white/10 bg-white/[0.04] p-5 shadow-[0_24px_70px_rgba(0,0,0,0.45)]">
               <div className="flex items-center justify-between">
-                <div className="text-sm font-semibold text-white/85">Preview</div>
+                <div className="text-sm font-semibold text-white/85">
+                  Platform Preview
+                </div>
                 <div className="inline-flex items-center gap-2">
                   <span className="h-2 w-2 rounded-full bg-emerald-400/80" />
-                  <span className="text-xs font-semibold text-white/55">Production-ready</span>
+                  <span className="text-xs font-semibold text-white/55">
+                    Production-ready
+                  </span>
                 </div>
               </div>
 
               <div className="mt-4 overflow-hidden rounded-2xl border border-white/10 bg-black/20">
                 <Image
                   src="/hero_product.png"
-                  alt="Dashboard preview"
+                  alt="Software platform dashboard preview"
                   width={1200}
                   height={720}
                   priority
@@ -227,7 +244,7 @@ export function Hero() {
             </div>
 
             <div className="absolute -bottom-8 left-10 z-20 rounded-full border border-white/10 bg-white/[0.06] px-4 py-2 text-xs font-semibold text-white/70 shadow-[0_18px_46px_rgba(0,0,0,0.35)] backdrop-blur">
-              Fast • Clean • Scalable
+              Built for speed • clarity • growth
             </div>
           </motion.div>
         </motion.div>

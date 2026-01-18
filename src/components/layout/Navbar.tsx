@@ -40,19 +40,43 @@ export function Navbar() {
   const safeActive = mounted ? active : null;
   const safeScrolled = mounted ? scrolled : false;
 
-  // ✅ lock para que el observer no cambie "top" -> "services" durante scroll suave
+  // lock to prevent observer overriding active during smooth scroll
   const lockActiveRef = useRef(false);
+
+  // ✅ helper: navigate with lock + smooth scroll
+  const goTo = (id: SectionId) => {
+    setOpen(false);
+    setActive(id);
+
+    lockActiveRef.current = true;
+
+    // ✅ let mobile sheet close before scrolling
+    requestAnimationFrame(() => {
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      history.replaceState(null, "", `#${id}`);
+    });
+
+    // ✅ longer lock (420ms is too short for long pages)
+    window.setTimeout(() => {
+      lockActiveRef.current = false;
+    }, 900);
+  };
 
   // active section observer
   useEffect(() => {
     if (!mounted) return;
 
-    // ✅ siempre observa top aunque no esté en site.nav
     const ids = Array.from(new Set<SectionId>(["top", ...items.map((x) => x.id)]));
 
     const obs = new IntersectionObserver(
       (entries) => {
         if (lockActiveRef.current) return;
+
+        // ✅ when near the top, force "top"
+        if (window.scrollY < 80) {
+          setActive("top");
+          return;
+        }
 
         const visible = entries
           .filter((e) => e.isIntersecting)
@@ -103,22 +127,6 @@ export function Navbar() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open, mounted]);
 
-  const onNavClick = () => setOpen(false);
-
-  // ✅ helper: navegar con lock (evita que active cambie en medio del scroll)
-  const goTo = (id: SectionId) => {
-    setOpen(false);
-    setActive(id);
-
-    lockActiveRef.current = true;
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
-    history.replaceState(null, "", `#${id}`);
-
-    window.setTimeout(() => {
-      lockActiveRef.current = false;
-    }, 420);
-  };
-
   return (
     <>
       <header
@@ -153,10 +161,9 @@ export function Navbar() {
                 <a
                   key={it.href}
                   href={it.href}
-                  onClick={() => {
-                    // ✅ usar goTo para que el active cambie correctamente
-                    const id = it.id as SectionId;
-                    goTo(id);
+                  onClick={(e) => {
+                    e.preventDefault(); // ✅ prevent default jump
+                    goTo(it.id as SectionId);
                   }}
                   aria-current={isActive ? "page" : undefined}
                   className={[
@@ -208,7 +215,7 @@ export function Navbar() {
               <span className="absolute inset-0 rounded-full ring-1 ring-white/10" />
               <span className="absolute -inset-1 rounded-full bg-blue-500/20 blur-lg opacity-70" />
               <span className="relative transition-transform duration-200 ease-out hover:-translate-y-[1px]">
-                Get a Quote
+              Request a consultation
               </span>
             </a>
 
@@ -226,10 +233,9 @@ export function Navbar() {
         </div>
       </header>
 
-      {/* ✅ MOBILE MENU in BODY via Portal */}
+      {/* MOBILE MENU via Portal */}
       {open && (
         <BodyPortal>
-          {/* Backdrop */}
           <button
             type="button"
             className="fixed inset-0 z-[80] bg-black/55 backdrop-blur-[2px]"
@@ -237,14 +243,12 @@ export function Navbar() {
             aria-label="Close menu backdrop"
           />
 
-          {/* Bottom sheet */}
           <div className="fixed inset-x-0 bottom-0 z-[90] px-4 pb-[calc(env(safe-area-inset-bottom)+16px)]">
             <div className="mx-auto max-w-6xl">
               <div className="max-h-[75vh] overflow-auto overflow-x-hidden rounded-3xl border border-white/12 bg-[#070B14]/92 shadow-[0_30px_80px_rgba(0,0,0,0.55)] backdrop-blur">
                 <div className="p-4">
                   <div className="mx-auto mb-3 h-1.5 w-12 rounded-full bg-white/15" />
 
-                  {/* Home/Top */}
                   <a
                     href="#top"
                     onClick={(e) => {
@@ -275,9 +279,7 @@ export function Navbar() {
                           ].join(" ")}
                         >
                           <span>{it.label}</span>
-                          <span className="text-xs font-semibold text-white/50">
-                            {isActive ? "Active" : ""}
-                          </span>
+                          <span className="text-xs font-semibold text-white/50">{isActive ? "Active" : ""}</span>
                         </a>
                       );
                     })}
@@ -292,7 +294,7 @@ export function Navbar() {
                       }}
                       className="inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-blue-600 to-emerald-600 px-5 py-3 text-sm font-semibold text-white shadow-[0_18px_46px_rgba(37,99,235,0.30)] transition hover:brightness-110"
                     >
-                      Get a Quote
+                      Request a consultation
                     </a>
 
                     <a

@@ -24,28 +24,28 @@ const steps = [
   {
     title: "Discovery & Strategy",
     desc: "We map your workflow, clarify goals, and define scope, timeline, and success metrics.",
-    outcome: "Outcome: project brief + success metrics",
+    outcome: "Deliverable: roadmap + scope + success metrics",
     Icon: Search,
     dot: "bg-blue-600/80",
   },
   {
     title: "Design & Architecture",
     desc: "UX + system design: data model, integrations, user flows, and scalable architecture decisions.",
-    outcome: "Outcome: flows, architecture, and technical plan",
+    outcome: "Deliverable: flows + architecture plan + technical spec",
     Icon: Layout,
     dot: "bg-indigo-600/80",
   },
   {
     title: "Development & Launch",
     desc: "We build, test, and ship — with clean code, performance, and a smooth deployment process.",
-    outcome: "Outcome: production release + QA sign-off",
+    outcome: "Deliverable: production release + QA sign-off",
     Icon: Code2,
     dot: "bg-cyan-600/80",
   },
   {
     title: "Support & Scaling",
     desc: "Ongoing improvements, monitoring, new features, and scaling as your business grows.",
-    outcome: "Outcome: reliability, updates, and iteration",
+    outcome: "Deliverable: monitoring + iteration + long-term support",
     Icon: LifeBuoy,
     dot: "bg-emerald-600/80",
   },
@@ -55,13 +55,10 @@ export function HowWeWork() {
   return (
     <section
       id="howwework"
-      className="relative scroll-mt-24 overflow-hidden bg-slate-100 py-18 sm:py-20"
+      className="relative scroll-mt-24 overflow-hidden bg-slate-100 py-20 sm:py-24"
     >
       {/* Light bridge */}
-      <div
-        className="pointer-events-none absolute -top-20 left-0 right-0 h-20"
-        aria-hidden="true"
-      >
+      <div className="pointer-events-none absolute -top-20 left-0 right-0 h-20" aria-hidden="true">
         <div className="absolute inset-0 bg-gradient-to-b from-[#F7FAFF] to-transparent" />
       </div>
 
@@ -91,8 +88,8 @@ export function HowWeWork() {
           </h2>
 
           <p className="mt-4 text-slate-600">
-            A structured process that reduces risk, keeps timelines clear, and
-            delivers quality outcomes.
+            A structured delivery process that reduces risk, keeps timelines clear, and ships
+            production-ready software.
           </p>
         </motion.div>
 
@@ -104,7 +101,7 @@ export function HowWeWork() {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          {/* Vertical rail (mobile + all) */}
+          {/* Vertical rail */}
           <div
             className="pointer-events-none absolute left-[14px] top-2 z-0 h-[calc(100%-10px)] w-[2px]"
             aria-hidden="true"
@@ -119,17 +116,14 @@ export function HowWeWork() {
                 variants={fadeUp}
                 className="group relative grid gap-3 sm:gap-4 sm:grid-cols-[56px_1fr] lg:grid-cols-[64px_1fr]"
               >
-                {/* Mobile: explicit step label (makes it instantly obvious) */}
-<div className="sm:hidden mb-2 inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.18em] uppercase text-slate-500">
-  <span className="inline-flex items-center rounded-full border border-slate-200 bg-white px-3 py-1">
-    Step {String(idx + 1).padStart(2, "0")}
-  </span>
-  <span className="h-1.5 w-1.5 rounded-full bg-slate-300" />
-  <span>Process</span>
-</div>
-
-
-               
+                {/* Mobile: explicit step label */}
+                <div className="sm:hidden mb-2 inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.18em] uppercase text-slate-500">
+                  <span className="inline-flex items-center rounded-full border border-slate-200 bg-white px-3 py-1">
+                    Step {String(idx + 1).padStart(2, "0")}
+                  </span>
+                  <span className="h-1.5 w-1.5 rounded-full bg-slate-300" />
+                  <span>Process</span>
+                </div>
 
                 {/* Left node (tablet/desktop) */}
                 <div className="relative hidden sm:flex sm:items-start sm:justify-center">
@@ -152,7 +146,8 @@ export function HowWeWork() {
                     "pl-14 pr-5 py-5 sm:p-6",
                     "shadow-[0_1px_0_rgba(15,23,42,0.06)]",
                     "transition-all duration-200",
-                    "hover:border-slate-300 hover:bg-white/90",
+                    // ✅ iOS/mobile-friendly: hover effects only on devices that actually support hover
+                    "md:hover:border-slate-300 md:hover:bg-white/90",
                   ].join(" ")}
                 >
                   <div
@@ -173,9 +168,7 @@ export function HowWeWork() {
                         </h3>
                       </div>
 
-                      <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                        {desc}
-                      </p>
+                      <p className="mt-2 text-sm leading-relaxed text-slate-600">{desc}</p>
 
                       <div className="mt-4 flex items-center gap-2 text-sm text-slate-600">
                         <span className={`h-1.5 w-1.5 rounded-full ${dot}`} />

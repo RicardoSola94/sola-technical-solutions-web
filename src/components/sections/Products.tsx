@@ -1,3 +1,4 @@
+// src/components/sections/Products.tsx
 "use client";
 
 import Link from "next/link";
@@ -67,15 +68,19 @@ const fadeUp: Variants = {
 };
 
 function LeaderCard(p: Product) {
-  const { title, subtitle, desc, bullets, Icon, badge, accent, ring, dot, image, href, secondaryHref } =
-    p;
+  const { title, subtitle, desc, bullets, Icon, badge, accent, ring, dot, image, href, secondaryHref } = p;
 
   const primaryCta = title === "MyBizNeed" ? "View platform" : "Explore samples";
 
   return (
     <motion.div
       variants={fadeUp}
-      className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-7 backdrop-blur transition-all duration-200 hover:-translate-y-1 hover:bg-white/[0.055] shadow-[0_18px_50px_rgba(0,0,0,0.45)] hover:shadow-[0_24px_70px_rgba(0,0,0,0.55)]"
+      className={[
+        "group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-7 backdrop-blur",
+        "transition-all duration-200 shadow-[0_18px_50px_rgba(0,0,0,0.45)]",
+        // ✅ iOS/mobile-friendly: hover effects only on desktop
+        "md:hover:-translate-y-1 md:hover:bg-white/[0.055] md:hover:shadow-[0_24px_70px_rgba(0,0,0,0.55)]",
+      ].join(" ")}
     >
       {/* Accent */}
       <div
@@ -97,8 +102,10 @@ function LeaderCard(p: Product) {
               <div className="mt-1 text-[11px] font-semibold tracking-[0.18em] uppercase text-white/55 line-clamp-2">
                 {subtitle}
               </div>
+
+              {/* ✅ trust micro-line (enterprise feel) */}
               <div className="mt-2 text-[11px] font-semibold tracking-[0.14em] uppercase text-white/45">
-                Designed • Built • Operated by us
+                Designed • Built • Operated by Sola Technical Solutions
               </div>
             </div>
           </div>
@@ -212,6 +219,11 @@ export function Products() {
             Real-world platforms designed, built, and maintained by Sola Technical Solutions — plus custom software
             tailored to your workflows and growth goals.
           </p>
+
+          {/* ✅ extra trust line (small, but very enterprise) */}
+          <p className="mt-3 text-sm text-white/50">
+            Same standards we use internally: performance, security, clean UX, and production deployment.
+          </p>
         </motion.div>
 
         {/* Leaders grid (2 only) */}
@@ -237,6 +249,7 @@ export function Products() {
         >
           <div className="relative">
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-indigo-500/14 via-blue-500/8 to-transparent" />
+
             <div className="relative grid gap-6 p-7 md:grid-cols-[1.2fr_0.8fr] md:items-center">
               <div>
                 <div className="flex items-start justify-between gap-4">
@@ -248,6 +261,9 @@ export function Products() {
                       <div className="text-sm font-semibold text-white">Custom Projects</div>
                       <div className="mt-1 text-[11px] font-semibold tracking-[0.18em] uppercase text-white/55">
                         SOFTWARE, AUTOMATION & INTEGRATIONS
+                      </div>
+                      <div className="mt-2 text-[11px] font-semibold tracking-[0.14em] uppercase text-white/45">
+                        Built to match your workflow
                       </div>
                     </div>
                   </div>
@@ -272,12 +288,13 @@ export function Products() {
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
 
+                  {/* ✅ FIXED anchor */}
                   <Link
-                    href="#how-we-work"
+                    href="#howwework"
                     className="inline-flex items-center gap-2 text-sm font-semibold text-white/70 transition hover:text-white"
                   >
                     How we work
-                    <ArrowRight className="h-4 w-4 transition-transform duration-200 hover:translate-x-0.5" />
+                    <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
                   </Link>
                 </div>
               </div>

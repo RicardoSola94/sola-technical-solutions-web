@@ -9,26 +9,37 @@ const services = [
   {
     title: "Custom Software Development",
     desc: "Production-ready systems tailored to your operations — from internal tools to full platforms.",
-    bullets: ["Internal tools & dashboards", "APIs & integrations", "Admin panels & workflows"],
+    bullets: [
+      "Internal tools & dashboards",
+      "APIs, integrations & data flows",
+      "Admin panels, workflows & automation",
+    ],
     Icon: Code2,
     accent: "from-blue-600/12 via-sky-500/8 to-transparent",
   },
   {
     title: "Web & Mobile Applications",
     desc: "Fast, modern experiences across devices — engineered for UX, performance, and long-term maintainability.",
-    bullets: ["Modern web & mobile builds", "Design systems & component libraries", "Performance & quality standards"],
+    bullets: [
+      "Modern web & mobile builds",
+      "Design systems & component libraries",
+      "Performance, accessibility & quality standards",
+    ],
     Icon: Smartphone,
     accent: "from-indigo-600/12 via-blue-600/8 to-transparent",
   },
   {
     title: "Media & Virtual Tours",
     desc: "High-impact visuals for real estate & brands — photography, video, and immersive 360° experiences.",
-    bullets: ["360° tours & web delivery", "Drone photo/video capture", "Fast turnaround & clean integration"],
+    bullets: [
+      "360° tours + web-ready delivery",
+      "Drone photo/video capture",
+      "Fast turnaround & clean integration",
+    ],
     Icon: Camera,
     accent: "from-cyan-600/12 via-sky-500/8 to-transparent",
   },
 ];
-
 
 const container: Variants = {
   hidden: {},
@@ -50,9 +61,6 @@ const fadeUp: Variants = {
 export function Services() {
   return (
     <section id="services" className="relative scroll-mt-24 bg-[#F7FAFF] pt-16 pb-20">
-      
-
-      
       {/* Background glows */}
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">
         <div className="absolute inset-0 bg-gradient-to-b from-[#F7FAFF] via-white to-slate-50" />
@@ -74,14 +82,15 @@ export function Services() {
           </div>
 
           <h2 className="mt-6 text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
-            Services built for serious growth
+            Built for serious teams and real operations
           </h2>
 
           <p className="mt-4 text-slate-600">
-  End-to-end delivery — strategy, design, development, and launch. Focused on outcomes:
-  reliability, speed, and clarity. We choose the right tools per project.
-</p>
-
+            End-to-end delivery — strategy, design, development, and launch. We focus on outcomes:
+            <span className="font-semibold text-slate-800"> speed</span>,{" "}
+            <span className="font-semibold text-slate-800">reliability</span>, and{" "}
+            <span className="font-semibold text-slate-800">clarity</span>.
+          </p>
         </motion.div>
 
         {/* Cards */}
@@ -130,14 +139,16 @@ export function Services() {
                   ))}
                 </ul>
 
-                <div className="mt-7">
+                <div className="mt-7 flex items-center gap-3">
                   <Link
                     href="#contact"
                     className="inline-flex items-center gap-2 rounded-full text-sm font-semibold text-slate-900 transition hover:text-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-[#F7FAFF]"
                   >
-                    Learn more
+                    Talk to us
                     <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
                   </Link>
+
+                  <span className="text-xs text-slate-500">• Typical delivery: 2–8 weeks</span>
                 </div>
               </div>
 
